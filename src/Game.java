@@ -5,10 +5,11 @@ import java.io.InputStreamReader;
 public class Game {
 
     public void play() throws IOException {
-
+        boolean start = true;
         printWelcome();
-        winnerChecker();
-
+        while(start) {
+            winnerChecker();
+        }
 
     }
 
@@ -20,12 +21,26 @@ public class Game {
     private void winnerChecker()  {
         try {
             int playerInput = playerHandler();
-            int computerInput = computerInput();
-
+            int computerInput = 3;
+            System.out.println(playerInput + " " + computerInput);
             if(playerInput == 0){
                 System.out.println("Wrong input");
+            }else if(computerInput == playerInput){
+
+                System.out.println("Player : Computer --> " + printChoicePlayer(playerInput) + " : " + printChoiceComputer(computerInput) );
+                System.out.println("It's a draw");
+            }
+            else if((playerInput == 1 && computerInput == 3) || (playerInput == 2 && computerInput == 1)
+                   || (playerInput == 3 && computerInput == 2)){
+                System.out.println("Player : Computer --> " + printChoicePlayer(playerInput) + " : " + printChoiceComputer(computerInput) );
+                System.out.println("Player has won");
+            }else{
+                System.out.println("Player : Computer --> " + printChoicePlayer(playerInput) + " : " + printChoiceComputer(computerInput) );
+                System.out.println("Computer has won");
             }
         } catch (IOException e) {
+            //for user
+            System.out.println();
             e.printStackTrace();
         }
 
@@ -46,9 +61,9 @@ public class Game {
         if(input.equals("rock")){
             return 1;
         }else if(input.equals("paper")){
-            return 1;
+            return 2;
         }else if(input.equals("scissors")){
-            return 1;
+            return 3;
         }else {
             return 0;
         }
@@ -60,7 +75,32 @@ public class Game {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
+    private String printChoicePlayer(int choice){
 
+            int playerInput = choice ;
+            if(playerInput == 1){
+                return "rock";
+            }else if(playerInput == 2){
+                return "paper";
+            }else{
+                return " scissors";
+            }
+
+    }
+
+    private String printChoiceComputer(int choice){
+        int computerInput = choice;
+
+        if(computerInput == 1){
+            return "rock";
+        }else if(computerInput == 2){
+            return "paper";
+        }else if(computerInput == 3){
+            return " scissors";
+        }else {
+            return "";
+        }
+    }
 
 
 }
